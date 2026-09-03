@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { siteConfig } from '@/lib/site/siteConfig';
 import ThemeProvider from '@/components/providers/ThemeProvider';
 import Header from '@/components/layout/Header';
@@ -42,6 +43,11 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚙️</text></svg>" />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4060149746434098"
+          crossOrigin="anonymous"
+        />
       </head>
       <body>
         <ThemeProvider>
