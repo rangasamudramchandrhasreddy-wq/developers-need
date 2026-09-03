@@ -8,17 +8,13 @@ export default function ThemeProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const stored = localStorage.getItem('theme') as
-      | 'light'
-      | 'dark'
-      | 'system'
-      | null;
-    if (stored) {
+    const stored = localStorage.getItem('theme');
+    if (stored === 'light' || stored === 'dark') {
       setTheme(stored);
     }
   }, []);
@@ -26,32 +22,13 @@ export default function ThemeProvider({
   useEffect(() => {
     if (!mounted) return;
 
-    const applyTheme = () => {
-      const doc = document.documentElement;
-      if (theme === 'system') {
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        doc.setAttribute('data-theme', isDark ? 'dark' : 'light');
-      } else {
-        doc.setAttribute('data-theme', theme);
-      }
-    };
-
-    applyTheme();
+    document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-
-    if (theme === 'system') {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      mediaQuery.addEventListener('change', applyTheme);
-      return () => mediaQuery.removeEventListener('change', applyTheme);
-    }
-
-    return undefined;
   }, [theme, mounted]);
 
   const toggleTheme = () => {
     setTheme((prev) => {
       if (prev === 'light') return 'dark';
-      if (prev === 'dark') return 'system';
       return 'light';
     });
   };
@@ -64,7 +41,7 @@ export default function ThemeProvider({
 }
 
 export const ThemeContext = createContext<{
-  theme: 'light' | 'dark' | 'system';
+  theme: 'light' | 'dark';
   toggleTheme: () => void;
 }>({
   theme: 'light',
@@ -81,7 +58,7 @@ export function ThemeToggle() {
       aria-label="Toggle theme"
       title={`Current theme: ${theme}`}
     >
-      {theme === 'light' || (theme === 'system' && false) ? (
+      {theme === 'light' ? (
         <Moon className="w-5 h-5" />
       ) : (
         <Sun className="w-5 h-5" />

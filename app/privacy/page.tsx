@@ -66,7 +66,7 @@ export default function PrivacyPage() {
         <ul className="space-y-2 text-gray-600 dark:text-gray-400 mt-3 list-disc list-inside">
           <li>Favorite tool slugs (for quick access)</li>
           <li>Recently used tool slugs (for convenience)</li>
-          <li>Theme preference (light/dark/system)</li>
+          <li>Theme preference (light/dark)</li>
         </ul>
         <p className="text-gray-600 dark:text-gray-400 mt-3">
           This data is stored only on your device and never sent to our servers.
