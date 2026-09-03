@@ -8,7 +8,7 @@ export default function ThemeProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('system');
+  const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('light');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export const ThemeContext = createContext<{
   theme: 'light' | 'dark' | 'system';
   toggleTheme: () => void;
 }>({
-  theme: 'system',
+  theme: 'light',
   toggleTheme: () => {},
 });
 
